@@ -13,7 +13,7 @@ int rdeca = 2;
 int rumena = 3;
 int zelena = 4;
 int buzzer = 5;
-float bestTime = 9999999.0;
+float bestTime = 404.404;
 
 void setup() {
   // put your setup code here, to run once:

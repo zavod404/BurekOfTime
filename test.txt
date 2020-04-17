@@ -1,1 +1,0 @@
-samo testiram, če mi dela lokalni git repo

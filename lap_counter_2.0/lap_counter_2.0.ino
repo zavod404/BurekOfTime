@@ -3,7 +3,7 @@
 
 LiquidCrystal_I2C lcd(0x27,20,4);  // set the LCD address to 0x27 for a 16 chars and 2 line display
 
-
+int i = 0;
 float cas;
 int mejaPrep = 0;
 int mejaStart = 0;
@@ -19,6 +19,8 @@ void setup() {
   pinMode(ledrdeca,OUTPUT);
   pinMode(ledrumena,OUTPUT);
   pinMode(ledzelena,OUTPUT);
+
+  Serial.begin(9600);
  
   lcd.init();
   lcd.backlight();
@@ -35,10 +37,13 @@ void loop() {
   delay(1000);
   while (analogRead(A2) > mejaStart){ //če ne prekineš zarka za stopanje gre v stanje pripravljenosti
       digitalWrite(ledrdeca, HIGH);
+      digitalWrite(ledzelena,LOW);
+      digitalWrite(ledrumena,LOW);
       lcd.setCursor(0,0);
       lcd.print("Postavi se          ");
     while(analogRead(A3) < mejaPrep){ //če prekineš žarek za pripravljenost se prižge rumena
       repeatStart:
+      Serial.println("pocakajzeleno");
       lcd.setCursor(0,0);
       lcd.print("Pocakaj zeleno     ");
       timePrep = millis();
@@ -48,7 +53,7 @@ void loop() {
         if (analogRead(A3) > mejaPrep || analogRead(A2) < mejaStart){
           lcd.clear();
           lcd.setCursor(0,0);
-          lcd.print("Prehiter start!");
+          lcd.print("Prehiter start! 1");
           digitalWrite(ledrumena, LOW);
           delay(3000); //Počakam da se tekmovalec vrne na start
           goto repeatStart;
@@ -58,14 +63,20 @@ void loop() {
       digitalWrite(ledrumena, LOW);
       digitalWrite(ledrdeca, LOW);
       digitalWrite(ledzelena, HIGH);
-      if(analogRead(A2) < mejaStart){
+      while(analogRead(A2) < mejaStart){
+        Serial.print("start");
+        i = 123456;
         break;
       }
       // delay(10000);
       // digitalWrite(ledzelena, LOW);
     }
+    Serial.println("out");
+    if(i == 123456){
+      break;
+    }
   }
-
+  Serial.println("tuki");
   //Stopanje časa
   cas = millis();
   lcd.clear();

@@ -32,9 +32,9 @@ void setup() {
       lcd.setCursor(0,0);
       lcd.print("/__");
       lcd.setCursor(0,1);
-      lcd.print("\  ");
+      lcd.print("\\  ");
       lcd.setCursor(12,0);
-      lcd.print("__\");
+      lcd.print("__\\");
       lcd.setCursor(14,1);
       lcd.print("/");
       delay(100);
@@ -42,12 +42,12 @@ void setup() {
       lcd.setCursor(0,0);
       lcd.print("/__");
       lcd.setCursor(0,1);
-      lcd.print("\  ");
+      lcd.print("\\  ");
       delay(100);
     }
   }else if(analogRead(A2)< mejaStart){
     lcd.setCursor(12,0);
-    lcd.print("__\");
+    lcd.print("__\\");
     lcd.setCursor(14,1);
     lcd.print("/");
     delay(100);
@@ -115,7 +115,7 @@ void loop() {
   if(najboljsiCas < cas){
     lcd.clear();
     lcd.setCursor(0,0);
-    lcd.print("Prejšnji najboljši čas: " + najboljsiCas + "s");
+    lcd.print("Prejšnji najboljši čas: " + String(najboljsiCas) + "s");
     najboljsiCas = cas;
     lcd.setCursor(0,1);
     lcd.print("Nov najboljši čas pa je:" + najboljsiCas + 's'); 
